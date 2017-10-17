@@ -61,6 +61,19 @@ cli.launch({
         poll: 1000
       }
     };
+
+    let devplus = false;
+    config.plugins = config.plugins || [];
+    config.plugins.every((plugin)=>{
+      if(plugin instanceof webpack.HotModuleReplacementPlugin){
+        devplus = true;
+        return false;
+      }
+      return true;
+    });
+    if(!devplus){
+      config.plugins.push(new webpack.HotModuleReplacementPlugin());
+    }
     WebpackDevServer.addDevServerEntrypoints(config, options);
     const compiler = webpack(config);
     const server = new WebpackDevServer(compiler, options);
