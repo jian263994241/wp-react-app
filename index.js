@@ -3,8 +3,11 @@ const Liftoff = require('liftoff');
 const argv = require('minimist')(process.argv.slice(2));
 const webpack = require("webpack");
 const WebpackDevServer = require('webpack-dev-server');
+const utils = require('./lib/utils');
 
 webpack.HtmlWebpackPlugin = require('./plugins/html-webpack-plugin');
+webpack.CompressionPlugin = require("compression-webpack-plugin");
+webpack.UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 webpack.preset = {
   cssRule: require('./config/css'),
@@ -62,16 +65,7 @@ cli.launch({
       }
     };
 
-    let devplus = false;
-    config.plugins = config.plugins || [];
-    config.plugins.every((plugin)=>{
-      if(plugin instanceof webpack.HotModuleReplacementPlugin){
-        devplus = true;
-        return false;
-      }
-      return true;
-    });
-    if(!devplus){
+    if(!utils.checkPlugins(config, webpack.HotModuleReplacementPlugin)){
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }
     WebpackDevServer.addDevServerEntrypoints(config, options);
