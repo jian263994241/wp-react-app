@@ -6,9 +6,10 @@ const WebpackDevServer = require('webpack-dev-server');
 const utils = require('./lib/utils');
 
 webpack.HtmlWebpackPlugin = require('./plugins/html-webpack-plugin');
+webpack.CleanWebpackPlugin = require('./plugins/clean-webpack-plugin');
 webpack.CompressionPlugin = require("compression-webpack-plugin");
 webpack.UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-webpack.CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 webpack.preset = {
   cssRule: require('./config/css'),
