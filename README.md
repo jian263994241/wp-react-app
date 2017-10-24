@@ -41,6 +41,7 @@ module.exports = {
       // (随着 entry chunk 越来越多，
       // 这个配置保证没其它的模块会打包进 vendor chunk)
     }),
+    new webpack.CleanWebpackPlugin(['dist']),
     new webpack.HotModuleReplacementPlugin()
   ]
 }
