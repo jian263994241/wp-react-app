@@ -1,19 +1,21 @@
 
 
-module.exports = function({modules = false, sourceMap = false}){
+module.exports = function({modules=false, sourceMap=false, hmr=true}){
 
   return {
     test: /\.(css|less)$/,
     use: [
-      'style-loader',
+      {
+        loader: 'style-loader',
+        options: {hmr, sourceMap}
+      },
       {
         loader: 'css-loader',
         options: {
-          sourceMap: true,
+          sourceMap,
           minimize: true,
           importLoaders: 1,
-          modules,
-          localIdentName: '[path][name]__[local]--[hash:base64:5]'
+          modules
         }
       }, {
         loader: 'less-loader',
