@@ -15,9 +15,19 @@ module.exports = function({modules=false, sourceMap=false, hmr=true}){
           sourceMap,
           minimize: true,
           importLoaders: 1,
-          modules
+          modules,
+          localIdentName: '[hash:base64:6]'
         }
       }, {
+        loader : 'postcss-loader',
+        options: {
+          sourceMap,
+          ident: 'postcss',
+          plugins: (loader) => [
+            require('autoprefixer')()
+          ]
+        }
+      },{
         loader: 'less-loader',
         options: {
           sourceMap,
